@@ -11,18 +11,18 @@
 #define ASCII_CAP_LOW_GAP 0x20
 
 
-static inline __attribute__((always_inline)) bool is_cap(const char c) {
+static inline __attribute__((always_inline)) bool _is_cap(const char c) {
     return (c >= ASCII_CAP_MIN && c <= ASCII_CAP_MAX) ? true : false;
 }
 
 
-static inline __attribute__((always_inline)) bool is_low(const char c) {
+static inline __attribute__((always_inline)) bool _is_low(const char c) {
     return (c >= ASCII_LOW_MIN && c <= ASCII_LOW_MAX) ? true : false;
 }
 
 
 static bool _is_good(const char c) {
-    return is_cap(c) || is_low(c);
+    return _is_cap(c) || _is_low(c);
 }
 
 
@@ -36,8 +36,8 @@ static inline __attribute__((always_inline))
 static inline __attribute__((always_inline))
     char _enc_char(const char c, const bool is_enc_cap) {
 
-    if (is_cap(c) && !is_enc_cap) return c + ASCII_CAP_LOW_GAP;
-    if (is_low(c) && is_enc_cap) return c - ASCII_CAP_LOW_GAP;
+    if (_is_cap(c) && !is_enc_cap) return c + ASCII_CAP_LOW_GAP;
+    if (_is_low(c) && is_enc_cap) return c - ASCII_CAP_LOW_GAP;
     return c;
 }
 
