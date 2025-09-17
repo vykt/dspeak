@@ -12,4 +12,4 @@ r: 0x72, 0111 0010 cONSidEr
 k: 0x6b, 0110 1011 aTE fElLA!
 ```
 
-Your carrier string must be eight times the length of the encoded string in terms of alphabetic characters only. Refer to the above example.
+Your carrier string must be at least eight times the length of the encoded string in terms of alphabetic characters only. Refer to the above example.
