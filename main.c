@@ -69,7 +69,8 @@ int main(int argc, char ** argv) {
     //if good length doesn't match, exit
     inp_sz = strlen(argv[1]);
     if ((good_enc_sz / CHAR_BIT) < inp_sz) {
-        fprintf(stderr, "error: Supplied carrier string is needs %ld more character(s).\n",
+        fprintf(stderr, "error: Supplied carrier string is needs %ld more "
+                        "alphabetic character(s).\n",
                 (inp_sz * CHAR_BIT) - good_enc_sz);
         return -1;
     }
