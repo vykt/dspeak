@@ -13,5 +13,3 @@ k: 0x6b, 0110 1011 aTE fElLA!
 ```
 
 Your carrier string must be eight times the length of the encoded string in terms of alphabetic characters only. Refer to the above example.
-
-From vykt with love.
