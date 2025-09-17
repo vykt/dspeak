@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include <limits.h>
 
 
 #define ASCII_CAP_MIN 0x41
@@ -29,7 +30,8 @@ static bool _is_good(const char c) {
 static inline __attribute__((always_inline))
     bool _is_enc_cap(const char * inp, const int idx) {
 
-    return (inp[idx / 8] & (0b10000000 >> (idx % 8))) > 0 ? true : false;
+    return (inp[idx / CHAR_BIT]
+            & (0b10000000 >> (idx % CHAR_BIT))) > 0 ? true : false;
 }
 
 
@@ -53,7 +55,7 @@ int main(int argc, char ** argv) {
 
     //exit on improper use
     if (argc != 3) {
-        fprintf(stderr, "use:  dspeak <input string> <encode string>\n");
+        fprintf(stderr, "use: dspeak <input string> <carrier string>\n");
         return -1;
     }
 
@@ -66,9 +68,9 @@ int main(int argc, char ** argv) {
 
     //if good length doesn't match, exit
     inp_sz = strlen(argv[1]);
-    if ((good_enc_sz / 8) != inp_sz) {
-        fprintf(stderr, "use: alphabetic characters in the encode string "
-                        "must match the input string times eight.\n");
+    if ((good_enc_sz / CHAR_BIT) < inp_sz) {
+        fprintf(stderr, "error: Supplied carrier string is needs %ld more character(s).\n",
+                (inp_sz * CHAR_BIT) - good_enc_sz);
         return -1;
     }
 
@@ -77,6 +79,9 @@ int main(int argc, char ** argv) {
     int inp_idx      = 0;
     for (int full_enc_idx = 0; full_enc_idx < full_enc_sz; ++full_enc_idx) {
         c = argv[2][full_enc_idx];
+
+        //if reached the end of the input string, skip encoding
+        if (inp_idx >= (inp_sz * CHAR_BIT)) goto _display_char;
 
         //simply print non-encoding characters
         if (!_is_good(c)) goto _display_char;

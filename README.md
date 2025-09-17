@@ -1,5 +1,5 @@
 # dspeak
-Encode a short string as binary within a long string, using capitals for '1' and lower case for '0'. E.g.:
+Encode an input string as binary within a carrier string, using capitals for '1' and lower case for '0'. E.g.:
 
 ```
 $ dspeak "dork" "You're a really nice, considerate fella!"
